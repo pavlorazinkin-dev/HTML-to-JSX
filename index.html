@@ -10,8 +10,15 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- =========================================================
+         NOTE FOR LEARNING: PAGE STRUCTURE
+         - <body> is everything visible on the page.
+         - .cards-container is the layout wrapper for all pricing cards.
+         - Each .card is one pricing plan block.
+         ========================================================= -->
     <p class="page-label"><strong>HTML version</strong> — static markup</p>
     <div class="cards-container">
+        <!-- NOTE FOR LEARNING: CARD 1 (Hobby) -->
         <div class="card">
             <div class="card-top">
                 <h3 class="card-title">Hobby</h3>
@@ -38,6 +45,7 @@
             </div>
             <button class="download-button secondary">Download</button>
         </div>
+        <!-- NOTE FOR LEARNING: CARD 2 (Pro) -->
         <div class="card">
             <div class="card-top">
                 <h3 class="card-title">Pro</h3>
@@ -69,6 +77,63 @@
             </div>
             <button class="download-button primary">Get Pro</button>
         </div>
+        <!-- NOTE FOR LEARNING: CARD 3 (Enterprise) -->
+        <div class="card">
+            <div class="card-top">
+                <h3 class="card-title">Enterprise</h3>
+                <p class="card-price">
+                    <span class="card-price-amount">$100</span>
+                    <span class="card-price-period">/mo.</span>
+                </p>
+                <div class="card-content">
+                    <p class="includes-text">Everything in Pro, plus:</p>
+                    <ul class="features-list">
+                        <li>
+                            <span class="checkmark">✓</span>
+                            Unlimited Agent requests
+                        </li>
+                        <li>
+                            <span class="checkmark">✓</span>
+                            Unlimited Tab completions
+                        </li>
+                        <li>
+                            <span class="checkmark">✓</span>
+                            Background Agents
+                        </li>
+                        <li>
+                            <span class="checkmark">✓</span>
+                            Maximum context windows
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <button class="download-button primary">Get Enterprise</button>
+        </div>
+        <!-- NOTE FOR LEARNING: CARD 4 (Custom) -->
+        <div class="card">
+            <div class="card-top">
+                <h3 class="card-title">Custom</h3>
+                <p class="card-price">
+                    <span class="card-price-amount">Custom</span>
+                </p>
+                <div class="card-content">
+                    <p class="includes-text">Need something custom?</p>
+                    <ul class="features-list">
+                        <li>
+                            <span class="checkmark">✓</span>
+                            Unlimited Agent requests
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <button class="download-button primary">Get Custom</button>
+        </div>
     </div>
+    <!-- =========================================================
+         NOTE FOR LEARNING: WHY THIS IS "STATIC HTML"
+         - Every card is written manually.
+         - If you add 10 more plans, you duplicate this markup 10 times.
+         - In `jsx-version.html`, the same UI is generated from reusable components.
+         ========================================================= -->
 </body>
 </html>

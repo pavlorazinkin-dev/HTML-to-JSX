@@ -12,6 +12,16 @@
 <body>
     <div id="root"></div>
     <script type="text/babel" data-type="module">
+        /*
+        =========================================================
+        NOTE FOR LEARNING: FILE MAP (JSX VERSION)
+        1) Button()      -> reusable button component
+        2) PricingCard() -> reusable card component
+        3) App()         -> plan data + page layout
+        4) root.render() -> mounts App into <div id="root">
+        =========================================================
+        */
+
         // Components can be used INSIDE other components — this is called "composition"
         // This Button component is small, but it keeps button styling/logic in one place
         // "variant" defaults to "secondary" if not provided — this is called a default parameter
@@ -53,6 +63,9 @@
         function App() {
             // In JSX, we separate DATA from PRESENTATION
             // These objects hold all the content for each pricing card
+            // NOTE FOR LEARNING:
+            // - You can think of these as "content settings" for each card.
+            // - Changing text/prices/features here updates the UI below.
             const hobbyPlan = {
                 title: 'Hobby',
                 price: 'Free',
@@ -72,18 +85,34 @@
                     'Maximum context windows',
                 ],
                 buttonText: 'Get Pro',
+                buttonVariant: 'secondary',
+            };
+            const enterprisePlan = {
+                title: 'Enterprise',
+                price: '$100/mo.',
+                includesText: 'Everything in Pro, plus:',
+                features: [
+                    'Unlimited Agent requests',
+                    'Unlimited Tab completions',
+                    'Background Agents',
+                    'Maximum context windows',
+                ],
+                buttonText: 'Get Enterprise',
                 buttonVariant: 'primary',
             };
-
             return (
                 // <> is a React Fragment - it groups elements without adding extra HTML divs
                 <>
                     <p className="page-label"><strong>JSX version</strong> — same UI, built with components</p>
                     <div className="cards-container">
+                        {/* NOTE FOR LEARNING:
+                            Each <PricingCard /> is one card instance.
+                            We pass data with {...planObject} instead of rewriting full markup. */}
                         {/* The spread operator {...hobbyPlan} passes all object properties as individual props */}
                         {/* This is the same as writing: title="Hobby" price="Free" includesText="Includes:" etc. */}
                         <PricingCard {...hobbyPlan} />
                         <PricingCard {...proPlan} />
+                        <PricingCard {...enterprisePlan} />
                     </div>
                 </>
             );
