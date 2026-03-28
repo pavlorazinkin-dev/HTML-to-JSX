@@ -39,7 +39,8 @@
                 // JSX uses "className" instead of "class" because "class" is a reserved word in JavaScript
                 <div className="card">
                     {/* Curly braces { } let you insert JavaScript expressions into JSX */}
-                    <h1 className="card-title">{title}</h1>
+                    {/* CHANGE: was <h1> — use <h3> so each plan is a subsection, not a second “main title” (matches index.html; better for screen readers). */}
+                    <h3 className="card-title">{title}</h3>
                     <p className="card-price">{price}</p>
                     <div className="card-content">
                         <p className="includes-text">{includesText}</p>
@@ -72,7 +73,7 @@
                 includesText: 'Includes:',
                 features: ['No credit card required', 'Limited Agent requests', 'Limited Tab completions'],
                 buttonText: 'Download',
-                buttonVariant: 'secondary',
+                buttonVariant: 'tertiary',
             };
             const proPlan = {
                 title: 'Pro',
@@ -85,7 +86,7 @@
                     'Maximum context windows',
                 ],
                 buttonText: 'Get Pro',
-                buttonVariant: 'secondary',
+                buttonVariant: 'tertiary',
             };
             const enterprisePlan = {
                 title: 'Enterprise',
@@ -98,6 +99,15 @@
                     'Maximum context windows',
                 ],
                 buttonText: 'Get Enterprise',
+                buttonVariant: 'tertiary'
+            };
+            const customPlan = {
+                title: 'Custom',
+                price: 'Custom',
+                includesText: 'Need something custom?',
+                // CHANGE: was two arrays separated by a comma (invalid object syntax). One array = multiple feature strings for .map().
+                features: ['Unlimited Agent requests', 'Unlimited Tab completions'],
+                buttonText: 'Get Custom',
                 buttonVariant: 'primary',
             };
             return (
@@ -113,6 +123,8 @@
                         <PricingCard {...hobbyPlan} />
                         <PricingCard {...proPlan} />
                         <PricingCard {...enterprisePlan} />
+                        {/* CHANGE: customPlan existed in data but was never rendered — fourth card now matches index.html. */}
+                        <PricingCard {...customPlan} />
                     </div>
                 </>
             );
