@@ -34,28 +34,36 @@
 
         // Same card UI, written as a JSX component (HTML-like syntax inside JavaScript)
         // This component is reusable - we can create multiple cards by passing different data
-        function PricingCard({ title, price, includesText, features, buttonText, buttonVariant }) {
+        // priceAmount + pricePeriod mirror index.html: <span class="card-price-amount"> + optional <span class="card-price-period">
+        // When priceAmount is null (Custom plan), we show "Custom" in the amount span — same as static HTML.
+        function PricingCard({ title, priceAmount, pricePeriod, includesText, features, buttonText, buttonVariant }) {
+            const displayAmount = priceAmount === null ? 'Custom' : priceAmount;
             return (
                 // JSX uses "className" instead of "class" because "class" is a reserved word in JavaScript
                 <div className="card">
-                    {/* Curly braces { } let you insert JavaScript expressions into JSX */}
-                    {/* CHANGE: was <h1> — use <h3> so each plan is a subsection, not a second “main title” (matches index.html; better for screen readers). */}
-                    <h3 className="card-title">{title}</h3>
-                    <p className="card-price">{price}</p>
-                    <div className="card-content">
-                        <p className="includes-text">{includesText}</p>
-                        <ul className="features-list">
-                            {/* .map() loops through the features array and creates a <li> for each item */}
-                            {features.map((feature, i) => (
-                                // "key" helps React track which items changed - using index (i) is OK for static lists
-                                <li key={i}>
-                                    <span className="checkmark">✓</span>
-                                    {feature}
-                                </li>
-                            ))}
-                        </ul>
+                    <div className="card-top">
+                        {/* Curly braces { } let you insert JavaScript expressions into JSX */}
+                        <h3 className="card-title">{title}</h3>
+                        <p className="card-price">
+                            <span className="card-price-amount">{displayAmount}</span>
+                            {pricePeriod ? (
+                                <span className="card-price-period">{pricePeriod}</span>
+                            ) : null}
+                        </p>
+                        <div className="card-content">
+                            <p className="includes-text">{includesText}</p>
+                            <ul className="features-list">
+                                {/* .map() loops through the features array and creates a <li> for each item */}
+                                {features.map((feature, i) => (
+                                    // "key" helps React track which items changed - using index (i) is OK for static lists
+                                    <li key={i}>
+                                        <span className="checkmark">✓</span>
+                                        {feature}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
-                    {/* Using our Button component instead of a raw <button> element */}
                     <Button label={buttonText} variant={buttonVariant} />
                 </div>
             );
@@ -69,7 +77,8 @@
             // - Changing text/prices/features here updates the UI below.
             const hobbyPlan = {
                 title: 'Hobby',
-                price: 'Free',
+                priceAmount: 'Free',
+                pricePeriod: null,
                 includesText: 'Includes:',
                 features: ['No credit card required', 'Limited Agent requests', 'Limited Tab completions'],
                 buttonText: 'Download',
@@ -77,7 +86,8 @@
             };
             const proPlan = {
                 title: 'Pro',
-                price: '$20/mo.',
+                priceAmount: '$20',
+                pricePeriod: '/mo.',
                 includesText: 'Everything in Hobby, plus:',
                 features: [
                     'Extended limits on Agent',
@@ -90,7 +100,8 @@
             };
             const enterprisePlan = {
                 title: 'Enterprise',
-                price: '$100/mo.',
+                priceAmount: '$100',
+                pricePeriod: '/mo.',
                 includesText: 'Everything in Pro, plus:',
                 features: [
                     'Unlimited Agent requests',
@@ -99,14 +110,14 @@
                     'Maximum context windows',
                 ],
                 buttonText: 'Get Enterprise',
-                buttonVariant: 'tertiary'
+                buttonVariant: 'tertiary',
             };
             const customPlan = {
                 title: 'Custom',
-                price: 'Custom',
+                priceAmount: null,
+                pricePeriod: null,
                 includesText: 'Need something custom?',
-                // CHANGE: was two arrays separated by a comma (invalid object syntax). One array = multiple feature strings for .map().
-                features: ['Unlimited Agent requests', 'Unlimited Tab completions'],
+                features: ['Unlimited Agent requests'],
                 buttonText: 'Get Custom',
                 buttonVariant: 'primary',
             };
@@ -123,7 +134,6 @@
                         <PricingCard {...hobbyPlan} />
                         <PricingCard {...proPlan} />
                         <PricingCard {...enterprisePlan} />
-                        {/* CHANGE: customPlan existed in data but was never rendered — fourth card now matches index.html. */}
                         <PricingCard {...customPlan} />
                     </div>
                 </>
